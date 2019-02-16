@@ -178,6 +178,9 @@ def alice(click_config,
         click.secho("Starting Alice Character Control...")
 
         click.secho(f"Alice Verifying Key {bytes(ALICE.stamp).hex()}", fg="green", bold=True)
+        text_file = open("/nucypher/alice_key.txt", "w")
+        text_file.write(bytes(ALICE.stamp).hex())
+        text_file.close()
 
         # Run
         if dry_run:
