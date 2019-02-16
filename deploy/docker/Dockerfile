@@ -9,7 +9,8 @@ WORKDIR /code
 
 # Copy the current directory contents into the container at /app
 COPY . /code
-
+COPY get-alices-key /usr/local/bin/get-alices-key
+RUN chmod +x /usr/local/bin/get-alices-key
 # Run pipenv
 RUN pip3 install .
 RUN ./scripts/install_solc.sh
