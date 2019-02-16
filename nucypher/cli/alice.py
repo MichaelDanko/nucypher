@@ -20,11 +20,11 @@ from nucypher.config.constants import GLOBAL_DOMAIN
 
 ALICE_BANNER = r"""
 
-    / \  | (_) ___ ___ 
+    / \  | (_) ___ ___
    / _ \ | | |/ __/ _ \
   / ___ \| | | (_|  __/
  /_/   \_|_|_|\___\___|
- 
+
  the Authority.
 
 """
@@ -178,6 +178,9 @@ def alice(click_config,
         click.secho("Starting Alice Character Control...")
 
         click.secho(f"Alice Verifying Key {bytes(ALICE.stamp).hex()}", fg="green", bold=True)
+        text_file = open("/nucypher/alice_key.txt", "w")
+        text_file.write(bytes(ALICE.stamp).hex())
+        text_file.close()
 
         # Run
         if dry_run:
