@@ -1,15 +1,19 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 
 import shlex, subprocess, time
+import os.path
 
-time.sleep(5)
+file_path = "/nucypher/alice_policy_pubkey"
+while not os.path.exists(file_path):
+    time.sleep(1)
 
-with open('/nucypher/alice_key.txt', 'r') as myfile:
-        data=myfile.read().replace('\n', '')        
+if os.path.isfile(file_path):
+    data=file_path.read().replace('\n', '')
+    command="nucypher enrico run --policy-encrypting-key " + data
+    args = shlex.split(command)
+    print(args)
+    subprocess.run(args)
+else:
+    raise ValueError("%s isn't a file!" % file_path)
 
-command="nucypher enrico run --policy-encrypting-key " + data
-args = shlex.split(command)
-print(args)
-
-subprocess.run(args)
 

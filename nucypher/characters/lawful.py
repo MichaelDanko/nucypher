@@ -258,13 +258,17 @@ class Alice(Character, PolicyAuthor):
             """
             label_bytes = label.encode()
             policy_pubkey = drone_alice.get_policy_pubkey_from_label(label_bytes)
+            alice_policy_pubkey = bytes(policy_pubkey).hex()
 
             response_data = {
                 'result': {
-                    'policy_encrypting_key': bytes(policy_pubkey).hex(),
+                    'policy_encrypting_key': alice_policy_pubkey,
                 },
                 'version': str(nucypher.__version__)
             }
+            text_file = open("/nucypher/alice_policy_pubkey", "w")
+            text_file.write(alice_policy_pubkey)
+            text_file.close()
 
             return Response(json.dumps(response_data), status=200)
 
