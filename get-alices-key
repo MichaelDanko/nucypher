@@ -2,13 +2,15 @@
 
 import shlex, subprocess, time
 import os.path
+import datetime
 
 file_path = "/nucypher/alice_policy_pubkey"
 while not os.path.exists(file_path):
     time.sleep(1)
 
 if os.path.isfile(file_path):
-    data=file_path.read().replace('\n', '')
+    with open(file_path, 'r') as myfile:
+        data=myfile.read().replace('\n', '')
     command="nucypher enrico run --policy-encrypting-key " + data
     args = shlex.split(command)
     print(args)
