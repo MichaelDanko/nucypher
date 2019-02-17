@@ -31,6 +31,7 @@ from cryptography.hazmat.primitives.serialization import Encoding
 from cryptography.x509 import load_pem_x509_certificate, Certificate, NameOID
 from eth_utils import to_checksum_address
 from flask import Flask, request, Response
+from flask_cors import CORS
 from functools import partial
 from twisted.internet import threads
 from twisted.logger import Logger
@@ -212,6 +213,7 @@ class Alice(Character, PolicyAuthor):
 
     def make_wsgi_app(drone_alice, start_learning=True):
         alice_control = Flask("alice-control")
+        CORS(alice_control)
         drone_alice.start_learning_loop(now=start_learning)
 
         @alice_control.route("/create_policy", methods=['PUT'])
@@ -553,6 +555,7 @@ class Bob(Character):
 
     def make_wsgi_app(drone_bob, start_learning=True):
         bob_control = Flask('bob-control')
+        CORS(bob_control)
         drone_bob.start_learning_loop(now=start_learning)
 
         @bob_control.route('/join_policy', methods=['POST'])
@@ -1156,6 +1159,7 @@ class Enrico(Character):
 
     def make_wsgi_app(drone_enrico):
         enrico_control = Flask("enrico-control")
+        CORS(enrico_control)
 
         @enrico_control.route('/encrypt_message', methods=['POST'])
         def encrypt_message():

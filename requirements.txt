@@ -31,6 +31,7 @@ eth-tester==0.1.0b37
 eth-typing==2.0.0
 eth-utils==1.4.1
 flask==1.0.2
+flask_cors
 hendrix==3.2.2
 hexbytes==0.1.0
 humanize==0.5.1
